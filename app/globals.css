@@ -31,3 +31,31 @@ body {
     text-wrap: balance;
   }
 }
+#header-bar{
+  background-color: #323639;
+  color: white;
+}
+#pdf-controls{
+  background-color: #323639;
+  color: white;
+}
+#proxy-renderer {
+  background-color: #525659;
+}
+#pdf-page-info{
+  color: white;
+}
+#pdf-controls button{
+  background-color: #525659;
+}
+#pdf-controls a{
+  background-color: #525659;
+}
+svg path , svg polygon{
+  fill: white;
+}
+#pdf-pagination-info{
+  color: white;
+}
+
+
