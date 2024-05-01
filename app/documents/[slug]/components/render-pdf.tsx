@@ -18,7 +18,6 @@ function RenderPdf(props: any) {
       },}}
    style={{ maxWidth: '100vw', maxHeight: '100vh', overflow: 'auto', color: 'black'}}
    />;
-
 }
 
 export default RenderPdf
