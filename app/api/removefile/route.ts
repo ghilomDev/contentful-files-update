@@ -5,8 +5,25 @@ import { error } from "console";
 import ClientGenerator from "@/app/lib/contentful-client";
 export async function POST(req: NextRequest) {
   const fileCollector = await req.json();
+
+   const { spaceId } = fileCollector;
   console.log(fileCollector, "<-------starting, data")
-  return NextResponse.json({ message: true, status: 200 ,datas: fileCollector });
+  if (!fileCollector) {
+    return NextResponse.json({ message: false, status: 400 });
+  }
+  const client = await ClientGenerator();
+  let filing = await client.getAsset(spaceId);
+  if (!filing) {
+    return NextResponse.json({ message: false, status: 400 });
+  }
+  const fileName = filing.fields.title;
+
+
+  return NextResponse.json({ message: true, status: 200 ,datas:fileName  });
+
+
+
+
   // const fileCollector = await req.json();
   // const { spaceId } = fileCollector;
   // console.log(fileCollector, "<-------starting, data")
