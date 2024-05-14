@@ -5,14 +5,10 @@ import { error } from "console";
 import ClientGenerator from "@/app/lib/contentful-client";
 export async function POST(req: NextRequest) {
   const data = await req.json();
-  const { space_id } = data;
-console.log(data, "<------------this is data------------->")
+  const { spaceId } = data;
   try {
     const client = await ClientGenerator();
-    let filing = await client.getAsset(space_id);
-
-    console.log(filing.fields.file?.fileName, "<------------this is filing------------->");
- 
+    let filing = await client.getAsset(spaceId);
 
  const fileName = filing.fields.file?.fileName;
 
