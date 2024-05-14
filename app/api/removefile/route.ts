@@ -2,11 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import cloudinary from "cloudinary";
 import { v2 as cloudinaryV2 } from "cloudinary";
 import { error } from "console";
+import ClientGenerator from "@/app/lib/contentful-client";
 export async function POST(req: NextRequest) {
   const data = await req.json();
-  const { public_id } = data;
-
+  const { space_id } = data;
+console.log(data, "<------------this is data------------->")
   try {
+    const client = await ClientGenerator();
+    let filing = await client.getAsset(space_id);
+
+    console.log(filing.fields.file?.fileName, "<------------this is filing------------->");
+ 
+
+ const fileName = filing.fields.file?.fileName;
+
     // Initialize cloudinary
     cloudinary.v2.config({
       cloud_name: "dev-wynn-las-vegas",
@@ -14,7 +23,7 @@ export async function POST(req: NextRequest) {
       api_secret: "YjHv-NKNDtMqZTyRUkPdUWOZ-Tk",
     });
     const data = await cloudinaryV2.uploader
-      .destroy(`visit-wynn/${public_id}`)
+      .destroy(`visit-wynn/${fileName}`)
       .then((result) => {
         return result;
       })
@@ -22,14 +31,9 @@ export async function POST(req: NextRequest) {
         return error;
       });
 
-    console.log(data, "<-----------------data");
-    if (data.result === "not found") {
-      throw new Error("File not found");
-    }
-    return NextResponse.json({ message: true, data: data, status: 200 });
+    return NextResponse.json({ message: true, status: 200 });
 
   } catch (e) {
-    console.error(error);
     return NextResponse.json({ error:'internal Error', status: 500 });
   }
 }
