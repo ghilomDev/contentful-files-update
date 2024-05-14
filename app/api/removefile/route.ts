@@ -11,7 +11,8 @@ export async function POST(req: NextRequest) {
     let filing = await client.getAsset(spaceId);
 
  const fileName = filing.fields.file?.fileName;
-
+console.log(fileName, "fileName"),
+console.log(filing, "filing")
     // Initialize cloudinary
     cloudinary.v2.config({
       cloud_name: "dev-wynn-las-vegas",
@@ -21,12 +22,13 @@ export async function POST(req: NextRequest) {
     const data = await cloudinaryV2.uploader
       .destroy(`visit-wynn/${fileName}`)
       .then((result) => {
+console.log(result, "result")
         return result;
       })
       .catch((error) => {
+console.log(error, "result")
         return error;
       });
-
     return NextResponse.json({ message: true, status: 200 });
 
   } catch (e) {
