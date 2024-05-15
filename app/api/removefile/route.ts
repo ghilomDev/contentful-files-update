@@ -12,18 +12,18 @@ export async function POST(req: NextRequest) {
   if (!fileCollector) {
     return NextResponse.json({ message: false, status: 400 });
   }
-  const client = createClient({
-    space:"dk7sfup6zsex",
-    accessToken: "Bp5GzW9gdTzqQRTIROu4ZgNMPS72dlSWNuYGF8f6jMo",
-  });
+  // const client = createClient({
+  //   space:"dk7sfup6zsex",
+  //   accessToken: "Bp5GzW9gdTzqQRTIROu4ZgNMPS72dlSWNuYGF8f6jMo",
+  // });
 try {
-  const res = await client.getAsset(spaceId);
+  // const res = await client.getAsset(spaceId);
 
   // console.log(res.sys, "<-------------res"); // Access the 'status' property from 'sys' object
-  if (!res) {
-    return NextResponse.json({ message: false, status: 400 });
-  }
-  const fileName = res.fields.title;
+  // if (!res) {
+  //   return NextResponse.json({ message: false, status: 400 });
+  // }
+  // const fileName = res.fields.title;
 
   // Initialize cloudinary
   cloudinary.v2.config({
@@ -31,7 +31,7 @@ try {
     api_key: "292399429862315",
     api_secret: "YjHv-NKNDtMqZTyRUkPdUWOZ-Tk",
   });
-  const data = await cloudinaryV2.uploader.destroy(`visit-wynn/${fileName}`);
+  const data = await cloudinaryV2.uploader.destroy(`visit-wynn/${spaceId}`);
   const result = await data;
   return NextResponse.json({ message: true, status: 200, result: result });
 } catch (error) {
