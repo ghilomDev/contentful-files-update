@@ -7,8 +7,8 @@ import ClientGenerator from "@/app/lib/contentful-client";
 export async function POST(req: NextRequest) {
   const fileCollector = await req.json();
 
-   const { spaceId } = fileCollector;
-  // console.log(fileCollector, "<-------starting, data")
+   const {spaceId} = fileCollector;
+  console.log(spaceId, "<-------starting, data", "*******************", fileCollector, "*******************")
   if (!fileCollector) {
     return NextResponse.json({ message: false, status: 400 });
   }
